@@ -1,0 +1,58 @@
+{% include 'header.html' %}
+
+<div class="container my-5">
+    {% for message in get_flashed_messages(): %} 
+        {% if "successfully" in message: %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% else: %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %} 
+    {% endfor %}
+</div>
+
+<div class="container">
+  <form method="post">
+    {{ form.hidden_tag() }}
+    <div class="mb-3 my-3">
+      {{ form.username.label(class="form-label") }} 
+      {{ form.username(placeholder="Enter your username here", class="form-control") }}
+    </div>
+    <div class="mb-3 my-3">
+      {{ form.note.label(class="form-label") }} 
+      {{ form.note(placeholder="Enter your note here", class="form-control") }}
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+  {{ ckeditor.load() }}
+  {{ ckeditor.config(name='note') }}
+</div>
+
+{% block content %}
+  <div class="container">
+    <table class="table mb-5 my-5">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Username</th>
+          <th scope="col">Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for note in all_notes: %}
+        <tr>
+          <th scope="row">{{ note.id }}</th>
+          <td>{{ note.username }}</td>
+          <td>{{ note.note|safe }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %} 
+{% include 'footer.html' %}
