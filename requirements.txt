@@ -1,5 +1,5 @@
-flask
-flask_wtf
-flask_sqlalchemy
-flask_ckeditor
+Flask
+Flask-wtf
+Flask-sqlalchemy
+flask-ckeditor
 Gunicor
